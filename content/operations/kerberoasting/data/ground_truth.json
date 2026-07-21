@@ -1,0 +1,19 @@
+{
+  "steps": [
+    {
+      "step_id": "s1",
+      "verdict": "tp",
+      "mitre": ["T1558.003"],
+      "indicators": ["TGS-flood", "RC4"],
+      "references": { "alert_ids": ["a1"], "log_ids": ["l1", "l2"] }
+    },
+    {
+      "step_id": "s2",
+      "verdict": "tp",
+      "mitre": ["T1003", "T1021.001"],
+      "indicators": ["mimikatz", "RDP"],
+      "references": { "alert_ids": ["a2"], "log_ids": ["l3", "l4"] }
+    }
+  ],
+  "operation_mitre": ["T1558.003", "T1003", "T1021.001"]
+}

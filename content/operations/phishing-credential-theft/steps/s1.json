@@ -1,0 +1,12 @@
+{
+  "id": "s1",
+  "order": 1,
+  "prompt": "The helpdesk forwarded a suspicious email. Triage it.",
+  "console_focus": "siem",
+  "expected_verdict": "tp",
+  "expected_mitre": ["T1566.001"],
+  "expected_indicators": ["invoice.exe", "m1crosoft-secure"],
+  "hints_after_seconds": 30,
+  "hints_interval_seconds": 45,
+  "hint_penalty_percent": 5
+}

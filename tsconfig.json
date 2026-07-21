@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/scenario" },
+    { "path": "./packages/grading" },
+    { "path": "./apps/web" }
+  ]
+}

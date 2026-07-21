@@ -1,0 +1,28 @@
+node_modules/
+.svelte-kit/
+build/
+dist/
+
+# data
+data/*.db
+data/*.db-journal
+data/*.db-shm
+data/*.db-wal
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs / caches
+*.log
+.turbo/
+.pnpm-store/
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+
+# agent scaffolding (skills, commands, plugin installs)
+.opencode/

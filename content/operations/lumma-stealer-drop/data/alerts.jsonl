@@ -1,0 +1,3 @@
+{"id":"a1","ts":"2025-09-12T16:02:11Z","source":"email","severity":"medium","title":"Phish delivered to dev-eng mailbox","description":"Link 'free-license.zip' from crack-tools@lumma-cdn.example.","entities":{"users":["dev1"],"domains":["lumma-cdn.example"]}}
+{"id":"a2","ts":"2025-09-12T16:11:08Z","source":"xdr","severity":"high","title":"Unsigned binary launched from Downloads","description":"C:\\Users\\dev1\\Downloads\\installer.exe ran signed-by=n/a.","entities":{"hosts":["DEV01"],"users":["dev1"]}}
+{"id":"a3","ts":"2025-09-12T16:14:42Z","source":"firewall","severity":"critical","title":"Large egress to rare ASN","description":"4.2MB POST to 45.155.205.211:443.","entities":{"ips":["45.155.205.211"]}}

@@ -1,0 +1,29 @@
+{
+  "name": "blueteam-emu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "BlueTeam-EMU: a SOC simulator with guided operations, tracks, and an eight-axis competency radar.",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @blueteam-emu/web dev",
+    "build": "pnpm --filter @blueteam-emu/web build",
+    "preview": "pnpm --filter @blueteam-emu/web preview",
+    "lint": "pnpm -r --if-present lint",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "validate-scenarios": "pnpm --filter @blueteam-emu/scenario exec tsx src/cli.ts ../../content",
+    "validate-scenarios:filter": "pnpm --filter @blueteam-emu/scenario validate",
+    "db:migrate": "pnpm --filter @blueteam-emu/web db:migrate",
+    "db:seed": "pnpm --filter @blueteam-emu/web db:seed",
+    "reset-user": "pnpm --filter @blueteam-emu/web reset-user",
+    "seed-demo": "pnpm --filter @blueteam-emu/web seed-demo",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm validate-scenarios"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "prettier": "^3.3.3"
+  }
+}

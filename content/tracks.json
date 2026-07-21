@@ -1,0 +1,27 @@
+{
+  "tracks": [
+    {
+      "id": "soc-analyst-foundations",
+      "title": "SOC Analyst Foundations",
+      "summary": "Your first week on the job: phishing, credential theft, and MFA basics.",
+      "difficulty": "beginner",
+      "operation_ids": [
+        "phishing-credential-theft",
+        "mfa-fatigue",
+        "kerberoasting"
+      ],
+      "gating": { "threshold": 60 }
+    },
+    {
+      "id": "infostealers-2026",
+      "title": "2026 Infostealers",
+      "summary": "Work modern stealer families from lure to exfil.",
+      "difficulty": "intermediate",
+      "operation_ids": [
+        "phishing-credential-theft",
+        "lumma-stealer-drop"
+      ],
+      "gating": { "threshold": 70 }
+    }
+  ]
+}

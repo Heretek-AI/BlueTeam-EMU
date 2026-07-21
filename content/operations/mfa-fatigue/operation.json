@@ -1,0 +1,42 @@
+{
+  "id": "mfa-fatigue",
+  "title": "MFA Fatigue: The Notification Flood",
+  "summary": "An attacker pounds the user with MFA prompts until one is accepted. Distinguish push-flood from a legitimate re-auth.",
+  "difficulty": "easy",
+  "duration_minutes": 30,
+  "xp": 60,
+  "prerequisites": ["phishing-credential-theft"],
+  "mitre_techniques": ["T1110", "T1078"],
+  "steps": [
+    {
+      "id": "s1",
+      "order": 1,
+      "prompt": "The user received 14 MFA push prompts in 6 minutes. Triage.",
+      "console_focus": "siem",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1110.001"],
+      "expected_indicators": ["push-flood", "auto-approved"],
+      "hints": [
+        { "after_seconds": 30, "text": "Did the user approve one of the prompts?" }
+      ],
+      "hints_after_seconds": 30,
+      "hints_interval_seconds": 30,
+      "hint_penalty_percent": 5
+    },
+    {
+      "id": "s2",
+      "order": 2,
+      "prompt": "Was the account compromised after the flood?",
+      "console_focus": "siem",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1078"],
+      "expected_indicators": ["Mail.Read.All", "consent-grant"],
+      "hints": [
+        { "after_seconds": 45, "text": "Look for OAuth scope grants." }
+      ],
+      "hints_after_seconds": 45,
+      "hints_interval_seconds": 60,
+      "hint_penalty_percent": 10
+    }
+  ]
+}

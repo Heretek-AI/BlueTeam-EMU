@@ -1,0 +1,19 @@
+{
+  "steps": [
+    {
+      "step_id": "s1",
+      "verdict": "tp",
+      "mitre": ["T1110.001"],
+      "indicators": ["push-flood", "auto-approved"],
+      "references": { "alert_ids": ["a1"], "log_ids": ["l1", "l2"] }
+    },
+    {
+      "step_id": "s2",
+      "verdict": "tp",
+      "mitre": ["T1078"],
+      "indicators": ["Mail.Read.All", "consent-grant"],
+      "references": { "alert_ids": ["a2"], "log_ids": ["l3"] }
+    }
+  ],
+  "operation_mitre": ["T1110.001", "T1078"]
+}

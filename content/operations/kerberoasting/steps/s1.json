@@ -1,0 +1,1 @@
+{"id":"s1","order":1,"prompt":"An unusual volume of TGS requests hit two service accounts. Triage the alert.","console_focus":"siem","expected_verdict":"tp","expected_mitre":["T1558.003"],"expected_indicators":["TGS-flood","RC4"],"hints_after_seconds":30,"hints_interval_seconds":45,"hint_penalty_percent":5}

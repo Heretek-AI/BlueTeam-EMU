@@ -1,0 +1,4 @@
+{"id":"l1","ts":"2025-10-04T21:08:11Z","source":"siem","host":"WS09","user":"ws-admin@CORP","event_type":"kerberos","fields":{"action":"TGS-REQ","target":"svc-sql","etype":"23"},"entities":{"users":["ws-admin"]}}
+{"id":"l2","ts":"2025-10-04T21:09:11Z","source":"siem","host":"WS09","user":"ws-admin@CORP","event_type":"kerberos","fields":{"action":"TGS-REQ","target":"svc-backup","etype":"23"},"entities":{"users":["ws-admin"]}}
+{"id":"l3","ts":"2025-10-04T22:14:48Z","source":"siem","host":"WS09","user":"ws-admin@CORP","event_type":"auth","fields":{"action":"RDP","dst_host":"DC01","src_ip":"10.10.4.40"},"entities":{"hosts":["DC01","WS09"]}}
+{"id":"l4","ts":"2025-10-04T22:33:08Z","source":"xdr","host":"DC01","user":"CORP\\Administrator","process":"mimikatz.exe","pid":1404,"ppid":820,"suspicious":true,"suspicion_rule":"credential-tool","event_type":"process","fields":{"args":"sekurlsa::logonpasswords"},"entities":{"hosts":["DC01"],"users":["administrator"]}}

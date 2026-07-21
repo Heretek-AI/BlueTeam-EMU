@@ -1,0 +1,1 @@
+{"id":"s2","order":2,"prompt":"Investigate the host for the stealer binary.","console_focus":"xdr","expected_verdict":"tp","expected_mitre":["T1059.001","T1005"],"expected_indicators":["powershell.exe","Downloads\\installer.exe"],"hints_after_seconds":30,"hints_interval_seconds":45,"hint_penalty_percent":10}
