@@ -37,3 +37,4 @@ apps/web/static/sql-wasm.wasm
 
 # TypeScript incremental build cache
 *.tsbuildinfo
+
