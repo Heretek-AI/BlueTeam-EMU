@@ -8,7 +8,6 @@ const WASM_URL =
     : '/sql-wasm.wasm';
 
 let dbHandle: DbHandle | undefined;
-let hydrationDone: Promise<void> | null = null;
 
 /** Get (or initialize) the shared database handle. */
 export async function getDb(): Promise<DbHandle> {
@@ -16,18 +15,6 @@ export async function getDb(): Promise<DbHandle> {
     dbHandle = await initDb({ wasmUrl: WASM_URL });
   }
   return dbHandle;
-}
-
-/** Wait for hydration to complete before querying. */
-export async function waitForHydration(): Promise<void> {
-  if (hydrationDone) await hydrationDone;
-}
-
-/** Mark hydration as complete. Called by boot.ts after hydrateContent(). */
-export function markHydrationDone(): void {
-  if (!hydrationDone) {
-    hydrationDone = Promise.resolve();
-  }
 }
 
 /** Persist the current database state to IndexedDB. */

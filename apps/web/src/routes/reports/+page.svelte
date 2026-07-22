@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/db.js';
+  import { waitForHydration } from '$lib/client/hydration.js';
   import RadarChart from '$lib/components/RadarChart.svelte';
 
   let userRadar = $state<any>(null);

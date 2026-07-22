@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/db.js';
+  import { waitForHydration } from '$lib/client/hydration.js';
   import HintPanel from '$lib/components/HintPanel.svelte';
 
   const opId = $derived($page.params.id!);

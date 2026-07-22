@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/db.js';
+  import { waitForHydration } from '$lib/client/hydration.js';
 
   let opCount = $state(0);
   let trackCount = $state(0);
