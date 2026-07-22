@@ -1,5 +1,6 @@
 import { initDb, persistDb as browserPersistDb } from '@blueteam-emu/browser-db';
 import type { DbHandle } from '@blueteam-emu/browser-db';
+import { isHydrated } from './hydration.js';
 
 /** Wasm URL: in production use the /BlueTeam-EMU base, in dev use the raw path. */
 const WASM_URL =
@@ -9,10 +10,24 @@ const WASM_URL =
 
 let dbHandle: DbHandle | undefined;
 
-/** Get (or initialize) the shared database handle. */
+/**
+ * Get the shared database handle.
+ * Blocks until hydration completes so callers always get populated data.
+ */
 export async function getDb(): Promise<DbHandle> {
   if (!dbHandle) {
     dbHandle = await initDb({ wasmUrl: WASM_URL });
+  }
+  if (!isHydrated()) {
+    // Wait for hydration to complete
+    await new Promise<void>((resolve) => {
+      const check = setInterval(() => {
+        if (isHydrated()) {
+          clearInterval(check);
+          resolve();
+        }
+      }, 50);
+    });
   }
   return dbHandle;
 }

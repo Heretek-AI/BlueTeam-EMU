@@ -5,6 +5,7 @@
  * at the end. Pages call waitForHydration() before querying.
  *
  * Uses a queue of resolvers so multiple waiters are all unblocked.
+ * done flag prevents future waits from blocking.
  */
 
 let done = false;
@@ -29,4 +30,9 @@ export async function waitForHydration(): Promise<void> {
   return new Promise<void>((resolve) => {
     resolvers.push(resolve);
   });
+}
+
+/** Check if hydration is complete (synchronous). */
+export function isHydrated(): boolean {
+  return done;
 }
