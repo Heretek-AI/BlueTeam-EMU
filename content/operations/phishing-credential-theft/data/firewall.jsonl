@@ -1,0 +1,3 @@
+{"id":"f1","ts":"2025-08-12T12:33:00Z","src_ip":"10.10.4.22","dst_ip":"1.2.3.4","dport":443,"proto":"tcp","bytes_out":182,"bytes_in":312044,"asn":"AS12345"}
+{"id":"f2","ts":"2025-08-12T12:48:11Z","src_ip":"41.58.94.22","dst_ip":"20.62.144.211","dport":443,"proto":"tcp","bytes_out":4288,"bytes_in":1822,"asn":"AS8075","dst_host":"graph.microsoft.com"}
+{"id":"f3","ts":"2025-08-12T12:48:12Z","src_ip":"41.58.94.22","dst_ip":"185.220.101.47","dport":9001,"proto":"tcp","bytes_out":4194304,"bytes_in":512,"asn":"AS208294","dst_host":"tor-exit-bb"}

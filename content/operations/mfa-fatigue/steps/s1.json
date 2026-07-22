@@ -1,0 +1,1 @@
+{"id":"s1","order":1,"prompt":"The user received 14 MFA push prompts in 6 minutes. Triage.","console_focus":"siem","expected_verdict":"tp","expected_mitre":["T1110.001"],"expected_indicators":["push-flood","auto-approved"],"hints_after_seconds":30,"hints_interval_seconds":30,"hint_penalty_percent":5}

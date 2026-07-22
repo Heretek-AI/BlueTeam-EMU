@@ -1,0 +1,58 @@
+{
+  "id": "phishing-credential-theft",
+  "title": "Phishing → Credential Theft",
+  "summary": "Initial access from a phish that drops a loader, escalates to credential theft, and signs into SaaS from an unfamiliar location.",
+  "difficulty": "easy",
+  "duration_minutes": 30,
+  "xp": 50,
+  "prerequisites": [],
+  "mitre_techniques": ["T1566.001", "T1059.001", "T1078"],
+  "steps": [
+    {
+      "id": "s1",
+      "order": 1,
+      "prompt": "The helpdesk forwarded a suspicious email. Triage it.",
+      "console_focus": "siem",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1566.001"],
+      "expected_indicators": ["invoice.exe", "m1crosoft-secure"],
+      "hints": [
+        { "after_seconds": 30, "text": "Look at the sender domain — punctuation matters." },
+        { "after_seconds": 60, "text": "Compare to the real microsoft.com." }
+      ],
+      "hints_after_seconds": 30,
+      "hints_interval_seconds": 45,
+      "hint_penalty_percent": 5
+    },
+    {
+      "id": "s2",
+      "order": 2,
+      "prompt": "The macro dropped a loader. Investigate the host endpoint.",
+      "console_focus": "xdr",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1059.001"],
+      "expected_indicators": ["powershell.exe", "Invoke-WebRequest"],
+      "hints": [
+        { "after_seconds": 45, "text": "Check the parent of powershell.exe." }
+      ],
+      "hints_after_seconds": 45,
+      "hints_interval_seconds": 60,
+      "hint_penalty_percent": 10
+    },
+    {
+      "id": "s3",
+      "order": 3,
+      "prompt": "Was the credential test successful? Decide.",
+      "console_focus": "any",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1078"],
+      "expected_indicators": ["Lagos", "replayed-token"],
+      "hints": [
+        { "after_seconds": 60, "text": "Token replay MFA bypass is the tell." }
+      ],
+      "hints_after_seconds": 60,
+      "hints_interval_seconds": 60,
+      "hint_penalty_percent": 15
+    }
+  ]
+}

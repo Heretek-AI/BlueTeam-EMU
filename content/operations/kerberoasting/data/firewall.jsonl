@@ -1,0 +1,1 @@
+{"id":"f1","ts":"2025-10-04T22:14:48Z","src_ip":"10.10.4.40","dst_ip":"10.10.4.10","dport":3389,"proto":"tcp","bytes_out":2402,"bytes_in":8123,"asn":"AS-CORP","dst_host":"DC01"}

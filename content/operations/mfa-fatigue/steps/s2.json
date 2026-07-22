@@ -1,0 +1,1 @@
+{"id":"s2","order":2,"prompt":"Was the account compromised after the flood?","console_focus":"siem","expected_verdict":"tp","expected_mitre":["T1078"],"expected_indicators":["Mail.Read.All","consent-grant"],"hints_after_seconds":45,"hints_interval_seconds":60,"hint_penalty_percent":10}

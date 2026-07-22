@@ -1,0 +1,3 @@
+import{g as c}from"./DAvteXHY.js";async function r(i){var e;const t=await c(),n=(i.kinds??["process","file","auth","network"]).map(()=>"?").join(","),p=[i.operationId,i.host,...i.kinds??["process","file","auth","network"]],a=Math.min(i.limit??500,500);return{events:(((e=t.db.exec(`SELECT id, ts, source, kind, host, user, process, pid, ppid, suspicious, suspicion_rule, payload
+     FROM events WHERE operation_id = ? AND host = ? AND kind IN (${n})
+     ORDER BY ts ASC LIMIT ?`,[...p,a])[0])==null?void 0:e.values)??[]).map(s=>({id:s[0],ts:s[1],source:s[2],kind:s[3],host:s[4],user:s[5],process:s[6],pid:s[7],ppid:s[8],suspicious:s[9]===1,suspicionRule:s[10],payload:JSON.parse(s[11]??"{}")}))}}export{r as getEntityTimeline};

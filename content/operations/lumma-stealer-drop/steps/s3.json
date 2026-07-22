@@ -1,0 +1,1 @@
+{"id":"s3","order":3,"prompt":"Where did the stolen browser data go?","console_focus":"firewall","expected_verdict":"tp","expected_mitre":["T1041"],"expected_indicators":["45.155.205.211","log.zip"],"hints_after_seconds":45,"hints_interval_seconds":60,"hint_penalty_percent":10}

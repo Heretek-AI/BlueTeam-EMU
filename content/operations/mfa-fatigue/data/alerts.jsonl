@@ -1,0 +1,2 @@
+{"id":"a1","ts":"2025-09-03T08:01:11Z","source":"siem","severity":"high","title":"MFA push flood: 14 prompts in 6m","description":"User j.singh@corp.com received 14 push prompts between 07:54 and 08:00; one accepted at 07:59.","entities":{"users":["j.singh"]}}
+{"id":"a2","ts":"2025-09-03T08:14:42Z","source":"siem","severity":"critical","title":"OAuth consent grant: Mail.Read.All","description":"App 'SalesReveal' granted Mail.Read.All scope by j.singh@corp.com.","entities":{"users":["j.singh"]}}

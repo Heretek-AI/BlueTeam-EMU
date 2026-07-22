@@ -1,0 +1,3 @@
+{"id":"l1","ts":"2025-09-03T07:54:01Z","source":"siem","host":"-","user":"j.singh@corp.com","event_type":"auth","fields":{"action":"mfa-push","result":"deny"},"entities":{"users":["j.singh"]}}
+{"id":"l2","ts":"2025-09-03T07:59:48Z","source":"siem","host":"-","user":"j.singh@corp.com","event_type":"auth","fields":{"action":"mfa-push","result":"allow","detail":"auto-approved"},"entities":{"users":["j.singh"]}}
+{"id":"l3","ts":"2025-09-03T08:14:42Z","source":"siem","host":"-","user":"j.singh@corp.com","event_type":"oauth","fields":{"action":"consent-grant","app":"SalesReveal","scope":"Mail.Read.All"},"entities":{"users":["j.singh"]}}

@@ -1,0 +1,12 @@
+{
+  "id": "s3",
+  "order": 3,
+  "prompt": "Was the credential test successful? Decide.",
+  "console_focus": "any",
+  "expected_verdict": "tp",
+  "expected_mitre": ["T1078"],
+  "expected_indicators": ["Lagos", "replayed-token"],
+  "hints_after_seconds": 60,
+  "hints_interval_seconds": 60,
+  "hint_penalty_percent": 15
+}

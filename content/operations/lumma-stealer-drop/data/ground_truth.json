@@ -1,0 +1,26 @@
+{
+  "steps": [
+    {
+      "step_id": "s1",
+      "verdict": "tp",
+      "mitre": ["T1566.002"],
+      "indicators": ["crack", "lumma-cdn"],
+      "references": { "alert_ids": ["a1"], "log_ids": ["l2"] }
+    },
+    {
+      "step_id": "s2",
+      "verdict": "tp",
+      "mitre": ["T1059.001", "T1005"],
+      "indicators": ["powershell.exe", "Downloads\\installer.exe"],
+      "references": { "alert_ids": ["a2"], "log_ids": ["l3", "l4"] }
+    },
+    {
+      "step_id": "s3",
+      "verdict": "tp",
+      "mitre": ["T1041"],
+      "indicators": ["45.155.205.211", "log.zip"],
+      "references": { "alert_ids": ["a3"], "log_ids": [] }
+    }
+  ],
+  "operation_mitre": ["T1566.002", "T1059.001", "T1005", "T1041"]
+}

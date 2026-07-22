@@ -1,0 +1,26 @@
+{
+  "steps": [
+    {
+      "step_id": "s1",
+      "verdict": "tp",
+      "mitre": ["T1566.001"],
+      "indicators": ["invoice.exe", "m1crosoft-secure"],
+      "references": { "alert_ids": ["a1"], "log_ids": ["l3"] }
+    },
+    {
+      "step_id": "s2",
+      "verdict": "tp",
+      "mitre": ["T1059.001"],
+      "indicators": ["powershell.exe", "Invoke-WebRequest"],
+      "references": { "alert_ids": [], "log_ids": ["l3", "l4"] }
+    },
+    {
+      "step_id": "s3",
+      "verdict": "tp",
+      "mitre": ["T1078"],
+      "indicators": ["Lagos", "replayed-token"],
+      "references": { "alert_ids": ["a2"], "log_ids": ["l5"] }
+    }
+  ],
+  "operation_mitre": ["T1566.001", "T1059.001", "T1078"]
+}

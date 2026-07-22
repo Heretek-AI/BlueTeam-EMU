@@ -1,0 +1,2 @@
+{"id":"a1","ts":"2025-10-04T21:14:11Z","source":"siem","severity":"high","title":"Kerberoasting signal: RC4 TGS flood","description":"172 TGS-REQ for svc-sql and svc-backup with RC4-HMAC within 6 minutes.","entities":{"hosts":["WS09"],"users":["ws-admin"]}}
+{"id":"a2","ts":"2025-10-04T22:33:08Z","source":"siem","severity":"critical","title":"Credential dump tool signature","description":"Mimikatz sekurlsa::logonpasswords fingerprint on DC01.","entities":{"hosts":["DC01"]}}

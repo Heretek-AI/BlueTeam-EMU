@@ -1,0 +1,57 @@
+{
+  "id": "lumma-stealer-drop",
+  "title": "Lumma Stealer Drop",
+  "summary": "Lure disguised as a software crack leads to Lumma stealer on a developer host, with a single shipped-out log archive.",
+  "difficulty": "intermediate",
+  "duration_minutes": 45,
+  "xp": 100,
+  "prerequisites": [],
+  "mitre_techniques": ["T1566.002", "T1059.001", "T1005", "T1041"],
+  "steps": [
+    {
+      "id": "s1",
+      "order": 1,
+      "prompt": "A developer clicked a phish link. Confirm the lure.",
+      "console_focus": "siem",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1566.002"],
+      "expected_indicators": ["crack", "lumma-cdn"],
+      "hints": [
+        { "after_seconds": 30, "text": "Look at where the link resolves." }
+      ],
+      "hints_after_seconds": 30,
+      "hints_interval_seconds": 45,
+      "hint_penalty_percent": 5
+    },
+    {
+      "id": "s2",
+      "order": 2,
+      "prompt": "Investigate the host for the stealer binary.",
+      "console_focus": "xdr",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1059.001", "T1005"],
+      "expected_indicators": ["powershell.exe", "Downloads\\installer.exe"],
+      "hints": [
+        { "after_seconds": 30, "text": "Look at child processes of PowerShell." }
+      ],
+      "hints_after_seconds": 30,
+      "hints_interval_seconds": 45,
+      "hint_penalty_percent": 10
+    },
+    {
+      "id": "s3",
+      "order": 3,
+      "prompt": "Where did the stolen browser data go?",
+      "console_focus": "firewall",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1041"],
+      "expected_indicators": ["45.155.205.211", "log.zip"],
+      "hints": [
+        { "after_seconds": 45, "text": "Match egress destination ASNs." }
+      ],
+      "hints_after_seconds": 45,
+      "hints_interval_seconds": 60,
+      "hint_penalty_percent": 10
+    }
+  ]
+}

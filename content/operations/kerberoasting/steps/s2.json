@@ -1,0 +1,1 @@
+{"id":"s2","order":2,"prompt":"Was there lateral movement after the roast?","console_focus":"any","expected_verdict":"tp","expected_mitre":["T1003","T1021.001"],"expected_indicators":["mimikatz","RDP"],"hints_after_seconds":60,"hints_interval_seconds":90,"hint_penalty_percent":15}

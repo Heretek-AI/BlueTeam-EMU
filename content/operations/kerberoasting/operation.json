@@ -1,0 +1,42 @@
+{
+  "id": "kerberoasting",
+  "title": "Kerberoasting: Service Ticket to Domain Admin",
+  "summary": "An attacker requests service tickets for accounts with weak passwords and cracks them offline.",
+  "difficulty": "hard",
+  "duration_minutes": 60,
+  "xp": 200,
+  "prerequisites": ["phishing-credential-theft", "mfa-fatigue"],
+  "mitre_techniques": ["T1558.003", "T1003"],
+  "steps": [
+    {
+      "id": "s1",
+      "order": 1,
+      "prompt": "An unusual volume of TGS requests hit two service accounts. Triage the alert.",
+      "console_focus": "siem",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1558.003"],
+      "expected_indicators": ["TGS-flood", "RC4"],
+      "hints": [
+        { "after_seconds": 30, "text": "Look for the encryption type." }
+      ],
+      "hints_after_seconds": 30,
+      "hints_interval_seconds": 45,
+      "hint_penalty_percent": 5
+    },
+    {
+      "id": "s2",
+      "order": 2,
+      "prompt": "Was there lateral movement after the roast?",
+      "console_focus": "any",
+      "expected_verdict": "tp",
+      "expected_mitre": ["T1003", "T1021.001"],
+      "expected_indicators": ["mimikatz", "RDP"],
+      "hints": [
+        { "after_seconds": 60, "text": "Look for unusual RDP patterns." }
+      ],
+      "hints_after_seconds": 60,
+      "hints_interval_seconds": 90,
+      "hint_penalty_percent": 15
+    }
+  ]
+}

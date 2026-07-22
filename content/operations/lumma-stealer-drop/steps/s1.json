@@ -1,0 +1,1 @@
+{"id":"s1","order":1,"prompt":"A developer clicked a phish link. Confirm the lure.","console_focus":"siem","expected_verdict":"tp","expected_mitre":["T1566.002"],"expected_indicators":["crack","lumma-cdn"],"hints_after_seconds":30,"hints_interval_seconds":45,"hint_penalty_percent":5}
