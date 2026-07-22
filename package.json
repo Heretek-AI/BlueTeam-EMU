@@ -15,12 +15,8 @@
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "pnpm -r --if-present test",
     "validate-scenarios": "pnpm --filter @blueteam-emu/scenario exec tsx src/cli.ts ../../content",
-    "validate-scenarios:filter": "pnpm --filter @blueteam-emu/scenario validate",
-    "db:migrate": "pnpm --filter @blueteam-emu/web db:migrate",
-    "db:seed": "pnpm --filter @blueteam-emu/web db:seed",
-    "reset-user": "pnpm --filter @blueteam-emu/web reset-user",
-    "seed-demo": "pnpm --filter @blueteam-emu/web seed-demo",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm validate-scenarios"
+    "bundle-content": "pnpm --filter @blueteam-emu/web exec tsx scripts/bundle-content.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm validate-scenarios && pnpm bundle-content"
   },
   "devDependencies": {
     "typescript": "^5.6.3",

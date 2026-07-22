@@ -12,18 +12,13 @@
     loading = true;
     errorMessage = '';
     try {
-      const res = await fetch('/api/console/siem/search', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          operationId,
-          filters: value ? [{ field, value }] : [],
-          limit: 200
-        })
+      const { searchLogs } = await import('$lib/client/siem.js');
+      const result = await searchLogs({
+        operationId,
+        filters: value ? [{ field, value }] : [],
+        limit: 200
       });
-      if (!res.ok) throw new Error(await res.text());
-      const j = await res.json();
-      events = j.events;
+      events = result.events;
     } catch (err) {
       errorMessage = err instanceof Error ? err.message : String(err);
     } finally {
@@ -45,7 +40,6 @@
     <option value="user">user</option>
     <option value="process">process</option>
     <option value="kind">kind</option>
-    <option value="action">action (field)</option>
   </select>
   <input bind:value placeholder="filter value…" />
   <button onclick={run}>{loading ? '...' : 'Search'}</button>
@@ -55,7 +49,7 @@
 
 <table class="mono" style="margin-top:8px;">
   <thead>
-    <tr><th>ts</th><th>source</th><th>kind</th><th>host</th><th>user</th><th>process</th><th>entities</th></tr>
+    <tr><th>ts</th><th>source</th><th>kind</th><th>host</th><th>user</th><th>process</th></tr>
   </thead>
   <tbody>
     {#each events as e}
@@ -66,14 +60,6 @@
         <td>{e.host ?? '-'}</td>
         <td>{e.user ?? '-'}</td>
         <td>{e.process ?? '-'}</td>
-        <td>
-          {#each [...(e.payload?.entities?.ips ?? [])].slice(0, 3) as ip}
-            <a href={linkEntity(ip, 'ip')} class="pill low">{ip}</a>
-          {/each}
-          {#each [...(e.payload?.entities?.hosts ?? [])].slice(0, 2) as h}
-            <a href={linkEntity(h, 'host')} class="pill medium">{h}</a>
-          {/each}
-        </td>
       </tr>
     {/each}
   </tbody>
@@ -85,13 +71,20 @@
       <strong>Event {selected.id}</strong>
       <button onclick={() => (selected = null)}>close</button>
     </header>
-    <pre class="mono">{JSON.stringify(selected, null, 2)}</pre>
+    <pre class="mono">{JSON.stringify(selected.payload ?? selected, null, 2)}</pre>
+    {#if selected.payload?.entities}
+      <h4>Entities</h4>
+      {#each Object.entries(selected.payload.entities) as [ek, evs]}
+        {#each (evs as any) as ev}
+          <a href={linkEntity(ev, ek.replace(/s$/, ''))} class="pill low">{ev}</a>
+        {/each}
+      {/each}
+    {/if}
   </aside>
 {/if}
 
 <style>
-  .drawer { position: fixed; right: 0; top: 48px; bottom: 0; width: 480px; background: var(--panel); border-left: 1px solid var(--border); padding: 16px; overflow: auto; }
+  .drawer { position: fixed; right: 0; top: 48px; bottom: 0; width: 480px; background: var(--panel); border-left: 1px solid var(--border); padding: 16px; overflow: auto; z-index: 60; }
   .drawer header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   pre { white-space: pre-wrap; }
-  .pill { margin-right: 4px; }
 </style>

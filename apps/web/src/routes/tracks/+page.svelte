@@ -1,10 +1,15 @@
 <script lang="ts">
-  let { data } = $props();
+  import { onMount } from 'svelte';
+
+  let tracks = $state<any[]>([]);
+  onMount(async () => {
+    const { listTracks } = await import('$lib/client/tracks.js');
+    tracks = await listTracks();
+  });
 </script>
 
 <h1>Learning tracks</h1>
-
-{#each data.tracks as t}
+{#each tracks as t}
   <section>
     <h2>{t.title}</h2>
     <p class="muted">{t.summary}</p>

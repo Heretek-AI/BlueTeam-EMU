@@ -26,3 +26,7 @@ data/*.db-wal
 
 # agent scaffolding (skills, commands, plugin installs)
 .opencode/
+
+# generated content
+apps/web/static/content/
+apps/web/static/sql-wasm.wasm

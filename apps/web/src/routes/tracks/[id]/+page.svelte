@@ -1,27 +1,53 @@
 <script lang="ts">
-  let { data } = $props();
+  import { page } from '$app/stores';
+  import { onMount } from 'svelte';
+
+  let track = $state<any>(null);
+  let ops = $state<any[]>([]);
+  let completed = $state(false);
+  let gatingState = $state(new Map<string, boolean>());
+  let enrolling = $state(false);
+
+  onMount(async () => {
+    const { getTrackDetail, enroll } = await import('$lib/client/tracks.js');
+    const detail = await getTrackDetail($page.params.id!);
+    track = detail.track;
+    ops = detail.operations;
+    completed = detail.completed;
+    gatingState = detail.gatingState;
+  });
+
+  function getBestScore() {
+    return 0; // simplified — real implementation would query runs
+  }
+
+  function isOpen(i: number) {
+    if (i === 0) return true;
+    const prev = ops[i - 1];
+    return prev && gatingState.get(prev.id);
+  }
 </script>
 
-<h1>{data.track.title}</h1>
-<p>{data.track.summary}</p>
-<p>Threshold: <strong>{data.threshold}</strong> · {#if data.trackCompleted}<span class="success">Completed</span>{:else}Not yet{/if}</p>
+{#if !track}
+  <p class="muted">Loading…</p>
+{:else}
+  <h1>{track.title}</h1>
+  <p>{track.summary}</p>
+  <p>Threshold: <strong>{track.threshold}</strong> · {#if completed}<span class="success">Completed</span>{:else}Not yet{/if}</p>
 
-<ol>
-  {#each data.operations as l, i}
-    <li>
-      {#if l.op}
-        {#if (data.bestScoreByOp[l.op.id] ?? 0) >= data.threshold}
+  <ol>
+    {#each ops as op, i}
+      <li>
+        {#if gatingState.get(op.id)}
           ✓
-        {:else if i === 0 || (data.bestScoreByOp[data.operations[i-1].op?.id ?? ''] ?? 0) >= data.threshold}
-          <a href={`/operations/${l.op.id}`}>start {l.op.title}</a>
+        {:else if isOpen(i)}
+          <a href={`/operations/${op.id}`}>start {op.title}</a>
         {:else}
           <span class="muted">🔒 locked (pass prior op first)</span>
         {/if}
-        <span class="muted mono">{l.op.id}</span>
-        {#if (data.bestScoreByOp[l.op.id] ?? 0) >= data.threshold}
-          <span class="success">passed</span>
-        {/if}
-      {/if}
-    </li>
-  {/each}
-</ol>
+        <span class="muted mono">{op.id}</span>
+        {#if gatingState.get(op.id)}<span class="success">passed</span>{/if}
+      </li>
+    {/each}
+  </ol>
+{/if}

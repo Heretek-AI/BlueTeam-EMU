@@ -11,19 +11,15 @@
   async function run() {
     loading = true;
     try {
-      const res = await fetch('/api/console/firewall/search', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          operationId,
-          srcIp: srcIp || undefined,
-          dstIp: dstIp || undefined,
-          dport: dport ? Number(dport) : undefined,
-          asn: asn || undefined
-        })
+      const { searchConnections } = await import('$lib/client/firewall.js');
+      const result = await searchConnections({
+        operationId,
+        srcIp: srcIp || undefined,
+        dstIp: dstIp || undefined,
+        dport: dport ? Number(dport) : undefined,
+        asn: asn || undefined
       });
-      const j = await res.json();
-      rows = j.rows;
+      rows = result.rows;
     } finally { loading = false; }
   }
 </script>
