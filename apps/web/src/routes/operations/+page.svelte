@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/hydration.js';
 
   let ops = $state<any[]>([]);
   onMount(async () => {
-    await waitForHydration();
     const { getDb } = await import('$lib/client/db.js');
     const h = await getDb();
     const res = h.db.exec('SELECT id, title, summary, difficulty, duration_minutes, xp, payload FROM operations ORDER BY title');

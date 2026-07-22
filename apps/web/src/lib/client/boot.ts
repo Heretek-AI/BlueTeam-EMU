@@ -1,5 +1,4 @@
 import { getDb, persistDb } from './db.js';
-import { startHydration, markHydrationDone } from './hydration.js';
 
 let initialized = false;
 
@@ -11,15 +10,12 @@ export async function initApp(): Promise<void> {
   if (initialized) return;
   initialized = true;
 
-  startHydration(); // create the pending hydration gate
-
   await getDb(); // initializes sql.js
   await ensureLocalUser();
 
   const { hydrateContent } = await import('./content-loader.js');
   await hydrateContent();
   await persistDb(); // explicit persist after hydration
-  markHydrationDone(); // unblock all waitForHydration() callers
 }
 
 async function ensureLocalUser() {

@@ -1,13 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/hydration.js';
 
   let opCount = $state(0);
   let trackCount = $state(0);
   let completionCount = $state(0);
 
   onMount(async () => {
-    await waitForHydration();
     const { getDb } = await import('$lib/client/db.js');
     const h = await getDb();
     const res = h.db.exec('SELECT COUNT(*) FROM operations');

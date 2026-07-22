@@ -1,10 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { waitForHydration } from '$lib/client/hydration.js';
 
   let tracks = $state<any[]>([]);
   onMount(async () => {
-    await waitForHydration();
     const { listTracks } = await import('$lib/client/tracks.js');
     tracks = await listTracks();
   });
