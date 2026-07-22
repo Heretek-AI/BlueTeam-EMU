@@ -6,19 +6,19 @@ const config = {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter({
-      fallback: '404.html'
+      fallback: '404.html',
     }),
     paths: {
-      base: '/BlueTeam-EMU'
+      base: '/BlueTeam-EMU',
     },
     prerender: {
-      entries: ['*']
+      entries: ['*'],
     },
     alias: {
-      '$lib': 'src/lib',
-      '$lib/client': 'src/lib/client'
-    }
-  }
+      $lib: 'src/lib',
+      '$lib/client': 'src/lib/client',
+    },
+  },
 };
 
 export default config;

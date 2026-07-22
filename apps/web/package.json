@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev --port 5173",
     "prebuild": "tsx ./scripts/bundle-content.ts",
-    "build": "vite build",
+    "build": "vite build && cp build/404.html build/index.html",
     "preview": "vite preview",
     "test": "vitest run --config vitest.web.config.ts",
     "e2e": "playwright test",
