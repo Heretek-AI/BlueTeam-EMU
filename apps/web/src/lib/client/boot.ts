@@ -1,4 +1,4 @@
-import { getDb, persistDb } from './db.js';
+import { getDb, persistDb, markHydrationDone } from './db.js';
 
 let initialized = false;
 
@@ -16,6 +16,7 @@ export async function initApp(): Promise<void> {
   const { hydrateContent } = await import('./content-loader.js');
   await hydrateContent();
   await persistDb(); // explicit persist after hydration
+  markHydrationDone(); // signal that hydration is complete
 }
 
 async function ensureLocalUser() {

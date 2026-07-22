@@ -1,30 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { waitForHydration } from '$lib/client/db.js';
 
   let opCount = $state(0);
   let trackCount = $state(0);
   let completionCount = $state(0);
 
   onMount(async () => {
-    const [tracks, completions, ops] = await Promise.all([
-      import('$lib/client/tracks.js').then((m) => m.listTracks()),
-      import('$lib/client/db.js').then(() =>
-        // getDb initializes, then we count track completions
-        import('$lib/client/tracks.js').then((m) => m.getTrackDetail).then()
-      ),
-      import('$lib/client/db.js').then(async ({ getDb }) => {
-        const h = await getDb();
-        const r = h.db.exec('SELECT COUNT(*) FROM operations');
-        return (r[0]?.values?.[0]?.[0] ?? 0) as number;
-      })
-    ]);
-    opCount = ops;
-    // Track completions from db
-    const h = await (await import('$lib/client/db.js')).getDb();
-    const cr = h.db.exec("SELECT COUNT(*) FROM track_completions WHERE user_id = 'local'");
-    completionCount = (cr[0]?.values?.[0]?.[0] ?? 0) as number;
+    await waitForHydration();
+    const { getDb } = await import('$lib/client/db.js');
+    const h = await getDb();
+    const res = h.db.exec('SELECT COUNT(*) FROM operations');
+    opCount = (res[0]?.values?.[0]?.[0] ?? 0) as number;
     const tr = h.db.exec('SELECT COUNT(*) FROM tracks');
     trackCount = (tr[0]?.values?.[0]?.[0] ?? 0) as number;
+    const cr = h.db.exec("SELECT COUNT(*) FROM track_completions WHERE user_id = 'local'");
+    completionCount = (cr[0]?.values?.[0]?.[0] ?? 0) as number;
   });
 </script>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { waitForHydration } from '$lib/client/db.js';
 
   let track = $state<any>(null);
   let ops = $state<any[]>([]);
@@ -9,6 +10,7 @@
   let enrolling = $state(false);
 
   onMount(async () => {
+    await waitForHydration();
     const { getTrackDetail, enroll } = await import('$lib/client/tracks.js');
     const detail = await getTrackDetail($page.params.id!);
     track = detail.track;

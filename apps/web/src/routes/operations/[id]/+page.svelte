@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
+  import { waitForHydration } from '$lib/client/db.js';
   import HintPanel from '$lib/components/HintPanel.svelte';
 
   const opId = $derived($page.params.id!);
@@ -20,6 +21,7 @@
   let loading = $state(true);
 
   onMount(async () => {
+    await waitForHydration();
     const { getDb } = await import('$lib/client/db.js');
     const h = await getDb();
     const res = h.db.exec('SELECT payload FROM operations WHERE id = ?', [opId]);

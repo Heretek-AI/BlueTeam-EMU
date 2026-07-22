@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { waitForHydration } from '$lib/client/db.js';
   import RadarChart from '$lib/components/RadarChart.svelte';
 
   let userRadar = $state<any>(null);
@@ -7,6 +8,7 @@
   let loading = $state(true);
 
   onMount(async () => {
+    await waitForHydration();
     const { getUserRadar } = await import('$lib/client/radar.js');
     const result = await getUserRadar();
     userRadar = result.user;
