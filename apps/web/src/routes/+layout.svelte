@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
   import '../app.css';
   import TopBar from '$lib/components/TopBar.svelte';
   import LeftRail from '$lib/components/LeftRail.svelte';
@@ -8,13 +7,24 @@
 
   const showShell = $derived(!['/profile'].includes($page.url.pathname));
 
+  let ready = $state(false);
+
   onMount(async () => {
     const { initApp } = await import('$lib/client/boot.js');
     await initApp();
+    ready = true;
   });
+
+  import { onMount } from 'svelte';
 </script>
 
-{#if showShell}
+{#if !ready}
+  <div class="shell">
+    <div class="content" style="display:flex;align-items:center;justify-content:center;height:100vh">
+      <p class="muted">Loading…</p>
+    </div>
+  </div>
+{:else if showShell}
   <div class="shell">
     <TopBar />
     <div class="layout">
@@ -27,3 +37,7 @@
 {:else}
   {@render children?.()}
 {/if}
+
+<style>
+  .content { padding-top: 8px; }
+</style>
