@@ -26,6 +26,10 @@ data/*.db-wal
 
 # agent scaffolding (skills, commands, plugin installs)
 .opencode/
+.agents/
+.aider-desk/
+.openhands/
+skills-lock.json
 
 # generated content
 apps/web/static/content/
