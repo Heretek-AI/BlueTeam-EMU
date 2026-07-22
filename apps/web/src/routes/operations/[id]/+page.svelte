@@ -112,6 +112,15 @@
     <p class="muted mono">MITRE: {payload.mitre_techniques.join(', ')}</p>
   {/if}
 
+  <div class="console-nav">
+    <h3>Consoles</h3>
+    <nav class="row">
+      <a href={`/operations/${opId}/siem`} class="pill low">SIEM</a>
+      <a href={`/operations/${opId}/xdr`} class="pill medium">XDR</a>
+      <a href={`/operations/${opId}/firewall`} class="pill high">Firewall</a>
+    </nav>
+  </div>
+
   <h3>Steps</h3>
   <ol>
     {#each payload.steps as s, i}
@@ -175,4 +184,6 @@
   li.active { font-weight: 600; }
   .step { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
   .complete { margin-top: 24px; }
+  .console-nav { margin: 16px 0; }
+  .console-nav h3 { margin-bottom: 8px; }
 </style>
