@@ -1,34 +1,32 @@
-import { initDb, persistDb as browserPersistDb } from '@blueteam-emu/browser-db';
-import type { DbHandle } from '@blueteam-emu/browser-db';
+/**
+ * Hydration gate: coordinates initApp() completion with page queries.
+ *
+ * initApp() calls startHydration() at the start and markHydrationDone()
+ * at the end. Pages call waitForHydration() before querying.
+ *
+ * Uses a queue of resolvers so multiple waiters are all unblocked.
+ */
 
-/** Wasm URL: in production use the /BlueTeam-EMU base, in dev use the raw path. */
-const WASM_URL =
-  typeof window !== 'undefined' && window.location.pathname.startsWith('/BlueTeam-EMU')
-    ? '/BlueTeam-EMU/sql-wasm.wasm'
-    : '/sql-wasm.wasm';
+let done = false;
+let resolvers: Array<() => void> = [];
 
-let dbHandle: DbHandle | undefined;
-
-// --- Hydration signaling ---
-// startHydration() creates a pending Promise.
-// markHydrationDone() resolves it.
-// waitForHydration() blocks until it resolves.
-let hydrationResolve: (() => void) | null = null;
-
-/** Call at the start of initApp() to create the pending hydration gate. */
+/** Call at the start of initApp() to reset the gate. */
 export function startHydration(): void {
-  hydrationResolve = null; // reset any prior resolve
+  done = false;
+  resolvers = [];
 }
 
 /** Call after hydration completes to unblock all waiters. */
 export function markHydrationDone(): void {
-  if (hydrationResolve) hydrationResolve();
+  done = true;
+  for (const r of resolvers) r();
+  resolvers = [];
 }
 
-/** Wait for initApp() to call markHydrationDone(). */
+/** Wait for initApp() to call markHydrationDone(). Returns immediately if already done. */
 export async function waitForHydration(): Promise<void> {
-  if (!hydrationResolve) return; // no hydration started yet — skip
-  await new Promise<void>((resolve) => {
-    hydrationResolve = resolve;
+  if (done) return;
+  return new Promise<void>((resolve) => {
+    resolvers.push(resolve);
   });
 }
